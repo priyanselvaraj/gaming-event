@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "lucide-react": "^1.39.0",
+    "mysql2": "^3.24.2",
+    "recharts": "^3.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "scripts": {
+    "dev": "nodemon server.js"
+  }
+}

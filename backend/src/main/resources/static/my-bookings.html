@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Bookings - GamePass</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span> GamePass
+      </a>
+      <ul class="nav-links" id="nav-links"></ul>
+      <div class="nav-btn-group" id="nav-auth-section"></div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 40px;">
+    <div class="section-header">
+      <div>
+        <h1 class="section-title">My Event Passes & Bookings</h1>
+        <p class="section-subtitle">Track your registered tournaments, ticket quantities, and reservation statuses</p>
+      </div>
+      <a href="events.html" class="btn btn-primary btn-sm">+ Book Another Event</a>
+    </div>
+
+    <div class="table-responsive">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Event Name</th>
+            <th>Tickets</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="bookings-table-body">
+          <!-- Loaded dynamically via loadUserBookings() -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Gaming Event Ticketing and Registration Platform.</p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      loadUserBookings();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Event Tickets - GamePass</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span> GamePass
+      </a>
+      <ul class="nav-links" id="nav-links"></ul>
+      <div class="nav-btn-group" id="nav-auth-section"></div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 40px;">
+    <div class="section-header">
+      <div>
+        <h1 class="section-title">Ticket Booking & Checkout</h1>
+        <p class="section-subtitle">Review event specifics, select ticket quantity, and confirm reservation</p>
+      </div>
+      <a href="events.html" class="btn btn-secondary btn-sm">&larr; Back to Events</a>
+    </div>
+
+    <div class="booking-layout">
+      <!-- Event Info Card -->
+      <div class="stat-card" style="text-align: left; background: var(--bg-card);">
+        <span class="game-tag" id="event-game">Game</span>
+        <h2 id="event-name" style="font-size: 1.8rem; margin: 10px 0; color: #fff;">Tournament Title</h2>
+        <p id="event-desc" style="color: var(--text-muted); margin-bottom: 24px;">Event description...</p>
+
+        <table class="checkout-details-table">
+          <tr>
+            <td style="color: var(--text-muted);">📅 Schedule:</td>
+            <td id="event-schedule">-</td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">📍 Venue:</td>
+            <td id="event-venue">-</td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">🎟️ Available Capacity:</td>
+            <td><strong id="event-seats" style="color: var(--accent-cyan);">-</strong></td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">💵 Price per Ticket:</td>
+            <td><strong id="event-price" style="color: var(--accent-green); font-size: 1.2rem;">-</strong></td>
+          </tr>
+        </table>
+
+        <div style="background: rgba(255, 255, 255, 0.03); padding: 16px; border-radius: var(--radius-sm); margin-top: 20px;">
+          <h4 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">ATTENDEE DETAILS</h4>
+          <p><strong>Name:</strong> <span id="user-name">-</span></p>
+          <p><strong>Email:</strong> <span id="user-email">-</span></p>
+        </div>
+      </div>
+
+      <!-- Booking Form & Invoice Card -->
+      <div class="booking-summary-card">
+        <h3 style="font-size: 1.4rem; margin-bottom: 20px;">Reserve Tickets</h3>
+
+        <form id="booking-form" onsubmit="handleConfirmBooking(event)">
+          <div class="form-group">
+            <label class="form-label" for="tickets-count">Number of Tickets</label>
+            <input 
+              type="number" 
+              id="tickets-count" 
+              class="form-control" 
+              min="1" 
+              max="10" 
+              value="1" 
+              required
+            >
+            <span class="form-help">Instant validation against available venue seats.</span>
+          </div>
+
+          <!-- Total Calculation Breakdown -->
+          <table class="checkout-details-table">
+            <tr>
+              <td>Tickets Count:</td>
+              <td id="summary-tickets">1</td>
+            </tr>
+            <tr>
+              <td>Price per Ticket:</td>
+              <td id="summary-unit-price">₹0.00</td>
+            </tr>
+            <tr style="border-top: 2px solid var(--border-color);">
+              <td style="font-size: 1.1rem; font-weight: 700;">Total Payable:</td>
+              <td><span id="summary-total-amount" class="checkout-total">₹0.00</span></td>
+            </tr>
+          </table>
+
+          <button type="submit" id="confirm-booking-btn" class="btn btn-primary btn-block btn-lg" style="margin-top: 24px;">
+            Confirm Booking ⚡
+          </button>
+        </form>
+
+        <p style="font-size: 0.8rem; color: var(--text-dark); text-align: center; margin-top: 16px;">
+          🔒 Free cancellation available anytime from your "My Bookings" page.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Gaming Event Ticketing and Registration Platform.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      initBookingPage();
+    });
+  </script>
+</body>
+</html>

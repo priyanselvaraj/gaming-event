@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaming Events & Tournaments - GamePass</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span> GamePass
+      </a>
+      <ul class="nav-links" id="nav-links"></ul>
+      <div class="nav-btn-group" id="nav-auth-section"></div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 40px;">
+    <div class="section-header">
+      <div>
+        <h1 class="section-title">All Esports Tournaments & Events</h1>
+        <p class="section-subtitle">Browse upcoming events, select your seat, and book official arena tickets</p>
+      </div>
+      <div>
+        <input 
+          type="text" 
+          id="event-search-input" 
+          class="form-control" 
+          placeholder="🔍 Search by Game or Event..." 
+          style="min-width: 260px;"
+          onkeyup="filterEvents()"
+        >
+      </div>
+    </div>
+
+    <!-- Events Grid -->
+    <div class="events-grid" id="events-grid">
+      <!-- Loaded dynamically via script.js -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Gaming Event Ticketing and Registration Platform.</p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      loadEvents("events-grid");
+    });
+
+    function filterEvents() {
+      const query = document.getElementById("event-search-input").value.toLowerCase();
+      const cards = document.querySelectorAll(".event-card");
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+  </script>
+</body>
+</html>

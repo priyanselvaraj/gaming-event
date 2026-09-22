@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - GamePass</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span> GamePass <span style="font-size: 0.8rem; background: var(--accent-yellow); color: #0f172a; padding: 2px 8px; border-radius: 4px; font-weight: 800; margin-left: 8px;">ADMIN</span>
+      </a>
+      <ul class="nav-links" id="nav-links"></ul>
+      <div class="nav-btn-group" id="nav-auth-section"></div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 40px;">
+    <!-- Dashboard Stats Header -->
+    <div class="section-header">
+      <div>
+        <h1 class="section-title">Admin Management Console</h1>
+        <p class="section-subtitle">Real-time tournament governance, quota allocations, and sales auditing</p>
+      </div>
+      <button onclick="openAddEventModal()" class="btn btn-primary">
+        + Create New Tournament
+      </button>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="stats-grid" style="margin: 20px 0 40px;">
+      <div class="stat-card">
+        <div class="stat-number" id="stat-total-events">0</div>
+        <div class="stat-label">Active Tournaments</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-total-bookings">0</div>
+        <div class="stat-label">Total Reservations</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-total-revenue">₹0.00</div>
+        <div class="stat-label">Platform Gross Revenue</div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: ALL GAMING EVENTS -->
+    <div class="section-header" style="margin-top: 20px;">
+      <h2 style="font-size: 1.4rem;">Gaming Events Management</h2>
+    </div>
+
+    <div class="table-responsive">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Event Name</th>
+            <th>Game Title</th>
+            <th>Schedule</th>
+            <th>Ticket Price</th>
+            <th>Seats (Avail/Total)</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="admin-events-tbody">
+          <!-- Populated by loadAdminEvents() -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 2: ALL BOOKINGS -->
+    <div class="section-header" style="margin-top: 20px;">
+      <h2 style="font-size: 1.4rem;">All User Bookings</h2>
+    </div>
+
+    <div class="table-responsive">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>User</th>
+            <th>Event Title</th>
+            <th>Tickets</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="admin-bookings-tbody">
+          <!-- Populated by loadAdminBookings() -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- ADD / EDIT EVENT MODAL -->
+  <div class="modal-overlay" id="event-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="event-modal-title" style="font-size: 1.4rem;">Add New Gaming Event</h3>
+        <button class="modal-close" onclick="closeEventModal()">&times;</button>
+      </div>
+
+      <form id="event-form" onsubmit="handleSaveEvent(event)">
+        <input type="hidden" id="event-id-hidden">
+
+        <div class="form-group">
+          <label class="form-label" for="m-name">Event Name</label>
+          <input type="text" id="m-name" class="form-control" placeholder="e.g. Valorant Champions LAN" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="m-game">Game Title</label>
+          <input type="text" id="m-game" class="form-control" placeholder="e.g. Valorant, CS2, EA FC 25" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="m-description">Description</label>
+          <textarea id="m-description" class="form-control" placeholder="Tournament format, prize pool, stage information..."></textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="m-date">Date</label>
+            <input type="date" id="m-date" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="m-time">Time</label>
+            <input type="time" id="m-time" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="m-venue">Venue / Location</label>
+          <input type="text" id="m-venue" class="form-control" placeholder="e.g. Hall 1, CyberHub Arena, Mumbai" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="m-price">Ticket Price (₹)</label>
+            <input type="number" step="0.01" min="0" id="m-price" class="form-control" placeholder="499.00" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="m-seats">Total Seats</label>
+            <input type="number" min="1" id="m-seats" class="form-control" placeholder="150" required>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+          <button type="button" class="btn btn-secondary" onclick="closeEventModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Event ⚡</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Gaming Event Ticketing and Registration Platform.</p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      initAdminPage();
+    });
+  </script>
+</body>
+</html>

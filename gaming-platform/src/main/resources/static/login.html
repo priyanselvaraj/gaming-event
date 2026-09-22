@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Gaming Event Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span> GamePass
+      </a>
+      <ul class="nav-links" id="nav-links"></ul>
+      <div class="nav-btn-group" id="nav-auth-section"></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="auth-wrapper">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1 class="auth-title">Player Login</h1>
+          <p class="auth-subtitle">Enter your credentials to access tickets & passes</p>
+        </div>
+
+        <!-- Quick Demo Hint -->
+        <div class="demo-box">
+          <strong>Default Accounts:</strong><br>
+          • <strong>Admin:</strong> <code>admin@gaming.com</code> / <code>admin123</code><br>
+          • <strong>Gamer:</strong> <code>alex@gaming.com</code> / <code>alex123</code><br>
+          <small>After the password, a 6-digit OTP is emailed to you. If SMTP is not set up, the OTP is printed in the backend console.</small>
+        </div>
+
+        <form id="login-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email Address</label>
+            <input 
+              type="email" 
+              id="login-email" 
+              class="form-control" 
+              placeholder="e.g. alex@gaming.com" 
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <input 
+              type="password" 
+              id="login-password" 
+              class="form-control" 
+              placeholder="Enter your password" 
+              required
+            >
+          </div>
+
+          <button type="submit" id="login-btn" class="btn btn-primary btn-block btn-lg">
+            Login to GamePass ⚡
+          </button>
+        </form>
+
+        <!-- Step 2: OTP verification (shown after password is accepted) -->
+        <form id="otp-form" style="display:none;" onsubmit="handleVerifyOtp(event)">
+          <p class="otp-info" id="otp-info">Enter the 6-digit code we emailed you.</p>
+
+          <div class="form-group">
+            <label class="form-label" for="login-otp">One-Time Password (OTP)</label>
+            <input
+              type="text"
+              id="login-otp"
+              class="form-control otp-input"
+              placeholder="------"
+              inputmode="numeric"
+              autocomplete="one-time-code"
+              maxlength="6"
+              pattern="[0-9]{6}"
+              required
+            >
+          </div>
+
+          <button type="submit" id="otp-btn" class="btn btn-primary btn-block btn-lg">
+            Verify &amp; Login ✅
+          </button>
+
+          <div class="otp-actions">
+            <button type="button" id="resend-btn" class="link-btn" onclick="handleResendOtp()" disabled>
+              Resend OTP
+            </button>
+            <button type="button" class="link-btn" onclick="cancelOtp()">
+              &larr; Back
+            </button>
+          </div>
+        </form>
+
+        <div class="auth-footer">
+          Don't have an account? <a href="register.html">Register here</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Gaming Event Ticketing and Registration Platform.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

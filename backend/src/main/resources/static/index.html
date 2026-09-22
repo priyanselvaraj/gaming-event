@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaming Event Ticketing & Registration Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span> GamePass
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <!-- Dynamic Navigation links loaded by script.js -->
+      </ul>
+      <div class="nav-btn-group" id="nav-auth-section">
+        <!-- Login / Register or User Profile loaded by script.js -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Welcome Section -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-tag">🔥 Season 2026 Live Now</span>
+      <h1 class="hero-title">
+        The Ultimate Arena for <br>
+        <span class="gradient-text">Gaming Tournaments & Tickets</span>
+      </h1>
+      <p class="hero-subtitle">
+        Discover premiere esports championships, book official arena passes, compete in tournaments, and elevate your gaming journey.
+      </p>
+      <div class="hero-actions">
+        <a href="events.html" class="btn btn-primary btn-lg">Browse Tournaments ⚡</a>
+        <a href="register.html" class="btn btn-secondary btn-lg">Join as Player 🎮</a>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Esports Events</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">10K+</div>
+          <div class="stat-label">Gamers Registered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Verified Passes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">₹5M+</div>
+          <div class="stat-label">Prize Pools</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Tournaments Section -->
+  <main class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Featured Gaming Events</h2>
+        <p class="section-subtitle">Secure your seat before arenas sell out</p>
+      </div>
+      <a href="events.html" class="btn btn-secondary btn-sm">View All Events &rarr;</a>
+    </div>
+
+    <!-- Events Grid -->
+    <div class="events-grid" id="events-grid">
+      <!-- Loaded dynamically via loadEvents('events-grid', 3) -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Gaming Event Ticketing and Registration Platform. Powered by Spring Boot 3.3.4 &amp; Modern Web.</p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      loadEvents("events-grid", 3);
+    });
+  </script>
+</body>
+</html>
