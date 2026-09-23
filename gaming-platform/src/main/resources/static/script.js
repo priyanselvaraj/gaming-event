@@ -3,7 +3,12 @@
  * Frontend JavaScript Controller
  */
 
-const API_URL = "http://localhost:8080/api";
+// Dynamic API URL: uses window.API_BASE_URL, localStorage, localhost for local dev, or relative '/api' for Vercel rewrites
+const API_URL = (typeof window !== "undefined" && window.API_BASE_URL)
+  || (typeof window !== "undefined" && localStorage.getItem("API_URL"))
+  || (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+      ? "http://localhost:8080/api"
+      : "/api");
 
 /* ===================================================
    AUTHENTICATION & LOCAL STORAGE HELPERS
@@ -122,10 +127,13 @@ function setupNavbar() {
 
   navLinksContainer.innerHTML = linksHtml;
 
-  // Highlight active link
+  // Highlight active link (supports both clean URLs and .html extensions)
   const currentPath = window.location.pathname.split("/").pop() || "index.html";
+  const currentPathClean = currentPath.replace(/\.html$/, "") || "index";
   document.querySelectorAll(".nav-link").forEach(link => {
-    if (link.getAttribute("href") === currentPath) {
+    const href = link.getAttribute("href") || "";
+    const hrefClean = href.replace(/\.html$/, "");
+    if (hrefClean === currentPathClean || href === currentPath) {
       link.classList.add("active");
     }
   });
@@ -441,7 +449,7 @@ async function initBookingPage() {
   if (!user) return;
 
   const params = new URLSearchParams(window.location.search);
-  const eventId = params.get("eventId");
+  const eventId = params.get("eventId") || params.get("id");
 
   if (!eventId) {
     showToast("No event selected!", "error");

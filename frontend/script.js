@@ -127,10 +127,13 @@ function setupNavbar() {
 
   navLinksContainer.innerHTML = linksHtml;
 
-  // Highlight active link
+  // Highlight active link (supports both clean URLs and .html extensions)
   const currentPath = window.location.pathname.split("/").pop() || "index.html";
+  const currentPathClean = currentPath.replace(/\.html$/, "") || "index";
   document.querySelectorAll(".nav-link").forEach(link => {
-    if (link.getAttribute("href") === currentPath) {
+    const href = link.getAttribute("href") || "";
+    const hrefClean = href.replace(/\.html$/, "");
+    if (hrefClean === currentPathClean || href === currentPath) {
       link.classList.add("active");
     }
   });
@@ -446,7 +449,7 @@ async function initBookingPage() {
   if (!user) return;
 
   const params = new URLSearchParams(window.location.search);
-  const eventId = params.get("eventId");
+  const eventId = params.get("eventId") || params.get("id");
 
   if (!eventId) {
     showToast("No event selected!", "error");
