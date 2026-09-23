@@ -1,5 +1,5 @@
 // Configuration for Gaming Event Platform
-// When deploying frontend to Vercel, set your deployed Render backend API URL below:
-// e.g.: window.API_BASE_URL = "https://your-backend.onrender.com/api";
-// Leave empty ("") to automatically use localhost during local development or Vercel rewrites.
-window.API_BASE_URL = window.API_BASE_URL || "";
+// Uses localhost when running locally, and your live Render backend when deployed to Vercel:
+window.API_BASE_URL = (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"))
+  ? "http://localhost:8080/api"
+  : "https://gaming-event.onrender.com/api";
